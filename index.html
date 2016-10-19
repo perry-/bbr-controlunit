@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>BBR - Control Unit Example</title>
+
+        <script src="/socket.io/socket.io.js"></script>
+
+        <script type="text/javascript">
+            var socket = io();
+
+            function sendMessage(message){
+                console.log(message);
+                socket.emit("control", message);
+            }
+
+            window.onload = function(){
+                socket.on('mqtt', function(data){
+                    console.log(data);
+                });
+            };
+        </script>
+        <style>
+            html, body {
+                height: 100%;
+                width: 100%;
+                padding: 0;
+                margin: 0;
+                background: #111;
+            }
+
+            .bbr-logo {
+                width: 10rem;
+                margin: 1rem;
+            }
+
+            .bbr-control {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .bbr-control__buttons {
+                width: 250px;
+                margin: 1rem;
+            }
+
+            .bbr-control__buttons-row {
+                display: flex;
+                justify-content: space-between;
+            }
+
+            .bbr-control__buttons-row + .bbr-control__buttons-row{
+                margin-top: 1rem;
+            }
+
+            .bbr-control__buttons-row:first-child, .bbr-control__buttons-row:last-child {
+                justify-content: center;
+            }
+
+            .bbr-control__buttons-up {
+                width: 0;
+                height: 0;
+                border-style: solid;
+                border-width: 0 50px 50px 50px;
+                border-color: transparent transparent #e86729 transparent;
+                background: none;
+                padding: 0;
+            }
+
+            .bbr-control__buttons-down {
+                width: 0;
+                height: 0;
+                border-style: solid;
+                border-width: 50px 50px 0 50px;
+                border-color: #e86729 transparent transparent transparent;
+                background: none;
+                padding: 0;
+            }
+
+            .bbr-control__buttons-right {
+                width: 0;
+                height: 0;
+                border-style: solid;
+                border-width: 50px 0 50px 50px;
+                border-color: transparent transparent transparent #e86729;
+                background: none;
+                padding: 0;
+            }
+
+            .bbr-control__buttons-left {
+                width: 0;
+                height: 0;
+                border-style: solid;
+                border-width: 50px 50px 50px 0;
+                border-color: transparent #e86729 transparent transparent;
+                background: none;
+                padding: 0;
+            }
+
+            .bbr-control__buttons-stop {
+                border: none;
+                background: white;
+                margin: 5px;
+                width: 90px;
+                height: 90px;
+            }
+        </style>
+    </head>
+    <body>
+        <img class="bbr-logo" src="/img/Bouvet_BattleRoyal.png" alt="" />
+        <div class="bbr-control">
+            <div class="bbr-control__buttons">
+                <div class="bbr-control__buttons-row">
+                    <button type="button" name="button" class="bbr-control__buttons-up" onclick="sendMessage('fwd')"></button>
+                </div>
+                <div class="bbr-control__buttons-row">
+                    <button type="button" name="button" class="bbr-control__buttons-left" onclick="sendMessage('left')"></button>
+                    <button type="button" name="button" class="bbr-control__buttons-stop" onclick="sendMessage('stop')"></button>
+                    <button type="button" name="button" class="bbr-control__buttons-right" onclick="sendMessage('right')"></button>
+                </div>
+                <div class="bbr-control__buttons-row">
+                    <button type="button" name="button" class="bbr-control__buttons-down" onclick="sendMessage('bwd')"></button>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
